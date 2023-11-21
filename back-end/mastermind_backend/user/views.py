@@ -28,7 +28,7 @@ def get_random_number(request):
 
 
 
-@api_view(["POST"])
+@require_http_methods(["POST"])
 def log_in(request): 
     try: 
         content = json.loads(request.body)
