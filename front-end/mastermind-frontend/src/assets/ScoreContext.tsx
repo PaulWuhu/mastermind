@@ -1,5 +1,5 @@
 
-import React,{ createContext, useContext, useState } from 'react';
+import React,{ createContext, useState } from 'react';
 
 type Props = {
     children?: React.ReactNode;
@@ -9,7 +9,7 @@ type createContextType = {
     scores: scores[]|null
     fetchScore: () => Promise<void>;
 }
-const ScoreContext = createContext<createContextType|null>(null);
+export const ScoreContext = createContext<createContextType|null>(null);
 
 export const ScoreProvider = ({ children}:Props) => {
   const [scores,setScores] = useState<scores[]|null>(null)
@@ -30,8 +30,4 @@ export const ScoreProvider = ({ children}:Props) => {
       {children}
     </ScoreContext.Provider>
   );
-};
-
-export const useScore = () => {
-  return useContext(ScoreContext);
 };

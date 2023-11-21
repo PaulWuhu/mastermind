@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useScore } from '../assets/ScoreContext';
+import { useContext, useEffect } from 'react';
+import { ScoreContext } from '../assets/ScoreContext';
 const Score = () => {
-    const { scores, fetchScore } = useScore();
+    const scoreContext = useContext(ScoreContext);
+    const scores =scoreContext?.scores
+    const fetchScore = scoreContext!.fetchScore
     // no idea how to fix this yet
     useEffect(() => {
       fetchScore();
