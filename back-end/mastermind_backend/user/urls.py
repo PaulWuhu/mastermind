@@ -5,7 +5,7 @@ urlpatterns = [
     path("api/get_random_numbers", views.get_random_number, name="get_random_number"),
     path("api/get_all_user",views.api_get_all_user, name="api_get_all_user"),
     path(
-        "api/user/<str:username>/",
+        "api/get_user/<str:username>/",
         views.api_get_user,
         name="api_get_user",
     ),
