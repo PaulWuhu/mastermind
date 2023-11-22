@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Result from "./result";
+import { Link } from "react-router-dom";
 type pastTry = {
   pastTry: number[];
   result: string;
@@ -68,27 +69,37 @@ const Board = () => {
       }
     });
     // had a bug where state update was slow, switch to for each instead of C for loop solve the bug somehow
-    if (correctLocation === 4) {
-      setWin(true);
-      setOpenM(true)
-      console.log("win")
-      // call the endpoint to update user info
-    } else if (tryLeft != 0) {
+    // if (correctLocation === 4) {
+    //   setWin(true);
+    //   setOpenM(true)
+    //   console.log("win")
+    //   setCorrectLocation(0)
+    //   // call the endpoint to update user info
+    // } else 
+    if (tryLeft != 0) {
       const newTry: pastTry = {
         pastTry: [temp],
         result: `You last try guessed ${correctNumber} correct number, and ${correctLocation} number location`,
       };
       setPastTry([...pastTry,newTry]);
       console.log(pastTry);
-    } if(tryLeft === 1) {
-      setWin(false);
-      setOpenM(true)
-      console.log("lose")
-    }
+    } 
     // console.log(correctLocation)
     // console.log(formState)
   };
-
+  if (correctLocation === 4) {
+    setWin(true);
+    setOpenM(true)
+    console.log("win")
+    setCorrectLocation(0)
+    // call the endpoint to update user info
+  }
+  if(tryLeft === 0) {
+    setWin(false);
+    setOpenM(true)
+    setTryLeft(10)
+    console.log("lose")
+  }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormState((prevState) => ({ ...prevState, [name]: +value }));
@@ -154,6 +165,7 @@ const Board = () => {
       </div>
       <button onClick={fetchNumber}>Start a New Game </button>
         <Result win = {win} setWin={setWin} fetchNumber={fetchNumber} openM={openM} setOpenM={setOpenM}/>
+        <Link to={"/"}>Back to home page</Link>
     </div>
   );
 };
