@@ -4,6 +4,7 @@ import Mainpage from "./components/Mainpage";
 import Scores from "./components/Score";
 import Notfound from "./components/Notfound";
 import Board from "./components/Board";
+import Login from "./components/Login";
 function App() {
 
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/rule" element={<Rule />} />
         <Route path="/score" element={<Scores/>}/>
         <Route path="/board" element={<Board/>}/>
+        <Route path="/login" element={<Login/>}/>
         <Route path="/" element={<Mainpage/>}/>
         <Route path="*" element={<Notfound />} />
       </Routes>

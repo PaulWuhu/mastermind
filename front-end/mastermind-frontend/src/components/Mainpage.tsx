@@ -12,6 +12,9 @@ const Mainpage = () => {
     <h2>
         <Link to={"/score"}>Check out the Score for all player Here!</Link>
     </h2>
+    <h2>
+        <Link to={"/login"}>Login Now!</Link>
+    </h2>
   <p>
   <Link to={"/board"}>Go Play Now!</Link>
   </p>
