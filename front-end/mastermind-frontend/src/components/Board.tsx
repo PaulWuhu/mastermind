@@ -86,6 +86,8 @@ const Board = () => {
     for (let i in formState) {
       temp.push(formState[i]);
     }
+    let correctLocations = 0
+    let correctNumbers = 0
     // console.log(temp)
     for(let i=0; i<4; i++){
       if (Number(target[i]) === temp[i]) {
@@ -93,37 +95,25 @@ const Board = () => {
           // console.log(temp[i],"temp")
           // console.log("this should appear on number location")
           setCorrectLocation((prevCorrectLocation) => prevCorrectLocation + 1);
+          correctLocations++
           }
-      if (target.includes(temp[i])) {
-        console.log("i am at correct number")
-        console.log(correctNumber,"b4 setter")
+      if (temp.includes(Number(target[i]))) {
+        // console.log("i am at correct number")
+        // console.log(correctNumber,"b4 setter")
         setCorrectNumber((prevCorrectNumber) => prevCorrectNumber + 1);
-        console.log(correctNumber,"after setter")
+        // console.log(correctNumber,"after setter")
+        correctNumbers++
         }
       }
       if (tryLeft != 0) {
         const newTry: pastTry = {
           pastTry: [temp],
-          correctLocation:correctLocation,
-          correctNumber:correctNumber
+          correctLocation:correctLocations,
+          correctNumber:correctNumbers
         };
         setPastTry([...pastTry,newTry]);
         console.log(pastTry);
       } 
-    // temp.forEach((num, i) => {
-    //   if (Number(target[i]) === num) {
-    //     console.log("this should appear on number location")
-    //     setCorrectLocation((prevCorrectLocation) => prevCorrectLocation + 1);
-    //   }
-    //   if (temp.includes(Number(target[i]))) {
-    //     console.log("this should appear on number correct")
-    //     setCorrectNumber((prevCorrectNumber) => prevCorrectNumber + 1);
-    //     console.log(correctNumber)
-    //   }
-    // });
-
-    // console.log(correctLocation)
-    // console.log(formState)
   };
   if (correctLocation === 4) {
     if(token){
@@ -133,7 +123,6 @@ const Board = () => {
     setOpenM(true)
     console.log("win")
     setCorrectLocation(0)
-    // call the endpoint to update user info
   }
   if(tryLeft === 0) {
     setWin(false);
