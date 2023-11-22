@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import Result from "./result";
 type pastTry = {
   pastTry: number[];
   result: string;
@@ -24,6 +25,7 @@ const Board = () => {
   const [pastTry, setPastTry] = useState<pastTry[]>([]);
   const [tryLeft, setTryLeft] = useState<number>(10);
   const [win, setWin] = useState<boolean | null>(null);
+  const [openM,setOpenM] = useState(false)
   const fetchNumber = async () => {
     try {
       const response = await fetch(
@@ -31,6 +33,16 @@ const Board = () => {
       );
       const jsonData = await response.json();
       setTarget(jsonData);
+      setCorrectLocation(0)
+      setCorrectNumber(0)
+      setFormState({
+        number1: 0,
+        number2: 0,
+        number3: 0,
+        number4: 0,
+      })
+      setPastTry([])
+      setTryLeft(10)
       console.log(jsonData)
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -47,18 +59,18 @@ const Board = () => {
       temp.push(formState[i]);
     }
     console.log(temp)
-    for (let i = 0; i < 4; i++) {
-      // console.log(target[i])
-      // console.log(temp[i])
-      if (Number(target[i]) === Number(temp[i])) {
-        setCorrectLocation((correctLocation) => correctLocation + 1);
+    temp.forEach((num, i) => {
+      if (Number(target[i]) === num) {
+        setCorrectLocation((prevCorrectLocation) => prevCorrectLocation + 1);
       }
       if (temp.includes(Number(target[i]))) {
-        setCorrectNumber((correctNumber) => correctNumber + 1);
+        setCorrectNumber((prevCorrectNumber) => prevCorrectNumber + 1);
       }
-    }
+    });
+    // had a bug where state update was slow, switch to for each instead of C for loop solve the bug somehow
     if (correctLocation === 4) {
       setWin(true);
+      setOpenM(true)
       console.log("win")
       // call the endpoint to update user info
     } else if (tryLeft != 0) {
@@ -67,16 +79,10 @@ const Board = () => {
         result: `You last try guessed ${correctNumber} correct number, and ${correctLocation} number location`,
       };
       setPastTry([...pastTry,newTry]);
-      // const tries = pastTry;
-      // tries?.push(newTry);
-      // if (pastTry === null) {
-      //   setPastTry([newTry]);
-      // } else {
-      //   setPastTry((tries) => [...tries, newTry]);
-      // }
       console.log(pastTry);
     } if(tryLeft === 1) {
       setWin(false);
+      setOpenM(true)
       console.log("lose")
     }
     // console.log(correctLocation)
@@ -146,8 +152,8 @@ const Board = () => {
           </div>
         ))}
       </div>
-      <button onClick={fetchNumber}>play </button>
-      
+      <button onClick={fetchNumber}>Start a New Game </button>
+        <Result win = {win} setWin={setWin} fetchNumber={fetchNumber} openM={openM} setOpenM={setOpenM}/>
     </div>
   );
 };

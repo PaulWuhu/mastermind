@@ -1,4 +1,4 @@
-import Board from "./Board"
+
 import {Link } from "react-router-dom";
 
 const Mainpage = () => {
@@ -13,7 +13,7 @@ const Mainpage = () => {
         <Link to={"/score"}>Check out the Score for all player Here!</Link>
     </h2>
   <p>
-    <Board/>
+  <Link to={"/board"}>Go Play Now!</Link>
   </p>
   </div>
   )
