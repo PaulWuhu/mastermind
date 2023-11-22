@@ -1,7 +1,9 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import Result from "./result";
+import { AuthContext } from '../assets/UserContext';
 import { Link } from "react-router-dom";
+import { ScoreContext } from "../assets/ScoreContext";
 type pastTry = {
   pastTry: number[];
   result: string;
@@ -14,6 +16,12 @@ interface FormState {
 }
 
 const Board = () => {
+  const userContext = useContext(AuthContext)
+  const user = userContext?.user
+  const token = user?.token.access
+  const scoreContext = useContext(ScoreContext);
+  const fetchScore = scoreContext!.fetchScore
+  // console.log(token)
   const [target, setTarget] = useState<number[]>([0, 0, 0, 0]);
   const [correctNumber, setCorrectNumber] = useState(0);
   const [correctLocation, setCorrectLocation] = useState(0);
@@ -27,6 +35,24 @@ const Board = () => {
   const [tryLeft, setTryLeft] = useState<number>(10);
   const [win, setWin] = useState<boolean | null>(null);
   const [openM,setOpenM] = useState(false)
+  const updateScore = async (result:string)=>{
+    const data = { result: result };
+    const fetchConfig = {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      await fetch(`http://127.0.0.1:8000/user/api/score/${user?.user.username}/`,fetchConfig)
+    }
+    catch {
+      console.log(Error);
+    }
+    fetchScore()
+  }
   const fetchNumber = async () => {
     try {
       const response = await fetch(
@@ -69,13 +95,6 @@ const Board = () => {
       }
     });
     // had a bug where state update was slow, switch to for each instead of C for loop solve the bug somehow
-    // if (correctLocation === 4) {
-    //   setWin(true);
-    //   setOpenM(true)
-    //   console.log("win")
-    //   setCorrectLocation(0)
-    //   // call the endpoint to update user info
-    // } else 
     if (tryLeft != 0) {
       const newTry: pastTry = {
         pastTry: [temp],
@@ -88,6 +107,9 @@ const Board = () => {
     // console.log(formState)
   };
   if (correctLocation === 4) {
+    if(token){
+      updateScore("win")
+    }
     setWin(true);
     setOpenM(true)
     console.log("win")
@@ -98,6 +120,9 @@ const Board = () => {
     setWin(false);
     setOpenM(true)
     setTryLeft(10)
+    if(token){
+      updateScore("loss")
+    }
     console.log("lose")
   }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,6 +131,7 @@ const Board = () => {
   };
   return (
     <div>
+      {token &&<p> Hello {user.user.username} </p>}
       <p>your try left: {tryLeft}</p>
       <form onSubmit={handleSubmit}>
         <label>

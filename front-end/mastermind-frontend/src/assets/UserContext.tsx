@@ -5,9 +5,20 @@ interface RegistrationData {
     password: string;
   }
 
+type user = {
+    token:{
+        access:string
+        refresh:string
+    }
+    user: {
+        username:string,
+        win:number
+        loss:number
+    }
+}
 
 export type AuthContextType = {
-    user: string | null;
+    user: user | null;
     setuser: Dispatch<SetStateAction<string | null>>;
     login: Promise<void>;
     logout: ()=> null;
@@ -46,7 +57,7 @@ export const AuthContext = createContext<AuthContextType>({
         if(response.ok){
             const jsonData = await response.json()
             setUser(jsonData)
-            console.log(User)
+            // console.log(user)
         }
         }
         catch{

@@ -9,7 +9,6 @@ const Score = () => {
     useEffect(() => {
       fetchScore();
     }, []);
-    console.log(scores)
   return (
     <div>
         <h1>Here are the scores for all players!</h1>
