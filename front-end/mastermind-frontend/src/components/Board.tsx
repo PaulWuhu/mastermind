@@ -21,7 +21,7 @@ const Board = () => {
     number3: 0,
     number4: 0,
   });
-  const [pastTry, setPastTry] = useState<pastTry[]>();
+  const [pastTry, setPastTry] = useState<pastTry[]>([]);
   const [tryLeft, setTryLeft] = useState<number>(10);
   const [win, setWin] = useState<boolean | null>(null);
   const fetchNumber = async () => {
@@ -40,6 +40,8 @@ const Board = () => {
     e.preventDefault();
     // console.log(pastTry);
     setTryLeft((tryLeft) => tryLeft - 1);
+    setCorrectLocation(0)
+    setCorrectNumber(0)
     const temp: number[] = [];
     for (let i in formState) {
       temp.push(formState[i]);
@@ -62,17 +64,17 @@ const Board = () => {
     } else if (tryLeft != 0) {
       const newTry: pastTry = {
         pastTry: [temp],
-        // things to work on
         result: `You last try guessed ${correctNumber} correct number, and ${correctLocation} number location`,
       };
-      const tries = pastTry;
-      tries?.push(newTry);
-      if (pastTry !== undefined) {
-        setPastTry([...pastTry, newTry]);
-      } else {
-        setPastTry([newTry]);
-      }
-      // console.log(pastTry);
+      setPastTry([...pastTry,newTry]);
+      // const tries = pastTry;
+      // tries?.push(newTry);
+      // if (pastTry === null) {
+      //   setPastTry([newTry]);
+      // } else {
+      //   setPastTry((tries) => [...tries, newTry]);
+      // }
+      console.log(pastTry);
     } if(tryLeft === 1) {
       setWin(false);
       console.log("lose")
@@ -144,7 +146,7 @@ const Board = () => {
           </div>
         ))}
       </div>
-      <button onClick={fetchNumber}> {win} play </button>
+      <button onClick={fetchNumber}>play </button>
       
     </div>
   );
