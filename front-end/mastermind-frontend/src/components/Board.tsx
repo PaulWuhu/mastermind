@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { ScoreContext } from "../assets/ScoreContext";
 type pastTry = {
   pastTry: number[];
-  result: string;
+  correctLocation: number;
+  correctNumber:number
 };
 interface FormState {
   number1: number;
@@ -70,7 +71,7 @@ const Board = () => {
       })
       setPastTry([])
       setTryLeft(10)
-      console.log(jsonData)
+      console.log(jsonData, "the answer")
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -85,24 +86,42 @@ const Board = () => {
     for (let i in formState) {
       temp.push(formState[i]);
     }
-    console.log(temp)
-    temp.forEach((num, i) => {
-      if (Number(target[i]) === num) {
-        setCorrectLocation((prevCorrectLocation) => prevCorrectLocation + 1);
-      }
-      if (temp.includes(Number(target[i]))) {
+    // console.log(temp)
+    for(let i=0; i<4; i++){
+      if (Number(target[i]) === temp[i]) {
+          // console.log(target[i],"target")
+          // console.log(temp[i],"temp")
+          // console.log("this should appear on number location")
+          setCorrectLocation((prevCorrectLocation) => prevCorrectLocation + 1);
+          }
+      if (target.includes(temp[i])) {
+        console.log("i am at correct number")
+        console.log(correctNumber,"b4 setter")
         setCorrectNumber((prevCorrectNumber) => prevCorrectNumber + 1);
+        console.log(correctNumber,"after setter")
+        }
       }
-    });
-    // had a bug where state update was slow, switch to for each instead of C for loop solve the bug somehow
-    if (tryLeft != 0) {
-      const newTry: pastTry = {
-        pastTry: [temp],
-        result: `You last try guessed ${correctNumber} correct number, and ${correctLocation} number location`,
-      };
-      setPastTry([...pastTry,newTry]);
-      console.log(pastTry);
-    } 
+      if (tryLeft != 0) {
+        const newTry: pastTry = {
+          pastTry: [temp],
+          correctLocation:correctLocation,
+          correctNumber:correctNumber
+        };
+        setPastTry([...pastTry,newTry]);
+        console.log(pastTry);
+      } 
+    // temp.forEach((num, i) => {
+    //   if (Number(target[i]) === num) {
+    //     console.log("this should appear on number location")
+    //     setCorrectLocation((prevCorrectLocation) => prevCorrectLocation + 1);
+    //   }
+    //   if (temp.includes(Number(target[i]))) {
+    //     console.log("this should appear on number correct")
+    //     setCorrectNumber((prevCorrectNumber) => prevCorrectNumber + 1);
+    //     console.log(correctNumber)
+    //   }
+    // });
+
     // console.log(correctLocation)
     // console.log(formState)
   };
@@ -185,13 +204,19 @@ const Board = () => {
         {pastTry?.map((item, index) => (
           <div key={index}>
             <p>{`Your combination is ${item.pastTry}`}</p>
-            <p>{item.result}</p>
+            <p>{`You have ${item.correctNumber} correct number`}</p>
+            <p>{`You have ${item.correctLocation} correct location`}</p>
           </div>
         ))}
       </div>
       <button onClick={fetchNumber}>Start a New Game </button>
         <Result win = {win} setWin={setWin} fetchNumber={fetchNumber} openM={openM} setOpenM={setOpenM}/>
-        <Link to={"/"}>Back to home page</Link>
+        <div>
+          <Link to={"/"}>Back to home page</Link>
+        </div>
+        <div>
+          <Link to={"/score"}>Check out the Score for all player Here!</Link>
+        </div>
     </div>
   );
 };
