@@ -28,39 +28,37 @@ const Login = (): ReactElement => {
     setPassword("");
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username" className="block mb-2 text-sm md:text-2xl">
-            Username
-          </label>
-          <input
-            className="text-gray-950"
-            onChange={handleUsernameChange}
-            type="username"
-            value={username === null ? "" : username}
-          />
+    <div className="container mx-auto mt-8 p-8 bg-gray-100 shadow-md">
+    <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+            <label htmlFor="username" className="block mb-2 text-sm md:text-6xl text-gray-700">Username</label>
+            <input
+                className="w-full px-4 py-3 border rounded-md text-lg text-gray-800"
+                onChange={handleUsernameChange}
+                type="username"
+                placeholder="type your username here"
+                value={username === null ? "" : username}
+            />
         </div>
-        <div>
-          <div className="mb-2">
-            <label htmlFor="password" className="text-sm md:text-2xl">
-              Password
-            </label>
-          </div>
-          <input
-            className="text-gray-950"
-            onChange={handlePasswordChange}
-            placeholder="*********"
-            type="password"
-            value={password === null ? "" : password}
-          />
+        <div className="mb-4">
+            <label htmlFor="password" className="block mb-2 text-sm md:text-6xl text-gray-700">Password</label>
+            <input
+                className="w-full px-4 py-3 border rounded-md text-lg text-gray-800"
+                onChange={handlePasswordChange}
+                placeholder="*********"
+                type="password"
+                value={password === null ? "" : password}
+            />
         </div>
-        <button>submit</button>
-      </form>
-      <p>
-        <Link to={"/signup"}>Sign Up Now!</Link>
-      </p>
-    </div>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm md:text-3xl">Submit</button>
+    </form>
+    <p className="mt-4 text-gray-700">
+        <Link to={"/signup"} className="text-blue-500 text-2xl font-bold">Sign Up Now!</Link>
+    </p>
+    <p className="my-4">
+    <Link to={"/"} className="text-blue-500 text-2xl font-bold ">Back to the home page</Link></p>
+</div>
+
   );
 };
 

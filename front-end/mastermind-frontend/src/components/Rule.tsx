@@ -1,30 +1,30 @@
-import React from 'react'
 import {Link } from "react-router-dom";
 
 const Rule = () => {
   return (
-    <div>
-        <h1>Welcome to Play Mastermind!</h1>
-        <h2>Here are the rule!</h2>
-        <ul>
-            <li>
-            At the start of the game the We will randomly select a pattern of four different numbers from a total of 8 different numbers, from 0 to 7!
-            </li>
-            <li>
-            A player will have 10 attempts to guess the number combinations
-            </li>
-            <li>
-            At the end of each guess, We will provide some feedback!
-            </li>
-            <li>
-            Try to guess the correct combinations before the attempts runs out. 
-            </li>
-            <li>
-                You can Sign Up with an account to make sure your score if kept, or play without an account!
-            </li>
-        </ul>
-        <Link to={"/"}>Back to home page</Link>
-    </div>
+    <div className="container mx-auto mt-8 p-8 bg-gray-100 shadow-md min-w-full min-h-full">
+    <h1 className="text-5xl font-bold my-6">Welcome to Play Mastermind!</h1>
+    <h2 className="text-4xl font-semibold pt-4">Here are the rules:</h2>
+    <ul className="list-disc pl-6 my-10 text-3xl">
+        <li className="mb-5">
+            At the start of the game, we will randomly select a pattern of four different numbers from a total of 8 different numbers, from 0 to 7!
+        </li>
+        <li className="mb-5">
+            A player will have 10 attempts to guess the number combinations.
+        </li>
+        <li className="mb-5">
+            At the end of each guess, we will provide some feedback.
+        </li>
+        <li className="mb-5">
+            Try to guess the correct combinations before the attempts run out.
+        </li>
+        <li className="mb-5">
+            You can Sign Up with an account to make sure your score is kept, or play without an account!
+        </li>
+    </ul>
+    <Link to={"/"} className="text-blue-500 text-2xl font-bold ">Back to the home page</Link>
+</div>
+
   )
 }
 
