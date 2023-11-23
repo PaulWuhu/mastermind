@@ -1,13 +1,13 @@
 import React from "react";
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import Result from "./result";
-import { AuthContext } from '../assets/UserContext';
+import { AuthContext } from "../assets/UserContext";
 import { Link } from "react-router-dom";
 import { ScoreContext } from "../assets/ScoreContext";
 type pastTry = {
   pastTry: number[];
   correctLocation: number;
-  correctNumber:number
+  correctNumber: number;
 };
 interface FormState {
   number1: number;
@@ -17,11 +17,11 @@ interface FormState {
 }
 
 const Board = () => {
-  const userContext = useContext(AuthContext)
-  const user = userContext?.user
-  const token = user?.token.access
+  const userContext = useContext(AuthContext);
+  const user = userContext?.user;
+  const token = user?.token.access;
   const scoreContext = useContext(ScoreContext);
-  const fetchScore = scoreContext!.fetchScore
+  const fetchScore = scoreContext!.fetchScore;
   // console.log(token)
   const [target, setTarget] = useState<number[]>([0, 0, 0, 0]);
   const [correctNumber, setCorrectNumber] = useState(0);
@@ -35,8 +35,8 @@ const Board = () => {
   const [pastTry, setPastTry] = useState<pastTry[]>([]);
   const [tryLeft, setTryLeft] = useState<number>(10);
   const [win, setWin] = useState<boolean | null>(null);
-  const [openM,setOpenM] = useState(false)
-  const updateScore = async (result:string)=>{
+  const [openM, setOpenM] = useState(false);
+  const updateScore = async (result: string) => {
     const data = { result: result };
     const fetchConfig = {
       method: "PUT",
@@ -47,13 +47,15 @@ const Board = () => {
       },
     };
     try {
-      await fetch(`http://127.0.0.1:8000/user/api/score/${user?.user.username}/`,fetchConfig)
-    }
-    catch {
+      await fetch(
+        `http://127.0.0.1:8000/user/api/score/${user?.user.username}/`,
+        fetchConfig
+      );
+    } catch {
       console.log(Error);
     }
-    fetchScore()
-  }
+    fetchScore();
+  };
   const fetchNumber = async () => {
     try {
       const response = await fetch(
@@ -61,17 +63,17 @@ const Board = () => {
       );
       const jsonData = await response.json();
       setTarget(jsonData);
-      setCorrectLocation(0)
-      setCorrectNumber(0)
+      setCorrectLocation(0);
+      setCorrectNumber(0);
       setFormState({
         number1: 0,
         number2: 0,
         number3: 0,
         number4: 0,
-      })
-      setPastTry([])
-      setTryLeft(10)
-      console.log(jsonData, "the answer")
+      });
+      setPastTry([]);
+      setTryLeft(10);
+      console.log(jsonData, "the answer");
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -80,58 +82,58 @@ const Board = () => {
     e.preventDefault();
     // console.log(pastTry);
     setTryLeft((tryLeft) => tryLeft - 1);
-    setCorrectLocation(0)
-    setCorrectNumber(0)
+    setCorrectLocation(0);
+    setCorrectNumber(0);
     const temp: number[] = [];
     for (let i in formState) {
       temp.push(formState[i]);
     }
-    let correctLocations = 0
-    let correctNumbers = 0
+    let correctLocations = 0;
+    let correctNumbers = 0;
     // console.log(temp)
-    for(let i=0; i<4; i++){
+    for (let i = 0; i < 4; i++) {
       if (Number(target[i]) === temp[i]) {
-          // console.log(target[i],"target")
-          // console.log(temp[i],"temp")
-          // console.log("this should appear on number location")
-          setCorrectLocation((prevCorrectLocation) => prevCorrectLocation + 1);
-          correctLocations++
-          }
+        // console.log(target[i],"target")
+        // console.log(temp[i],"temp")
+        // console.log("this should appear on number location")
+        setCorrectLocation((prevCorrectLocation) => prevCorrectLocation + 1);
+        correctLocations++;
+      }
       if (temp.includes(Number(target[i]))) {
         // console.log("i am at correct number")
         // console.log(correctNumber,"b4 setter")
         setCorrectNumber((prevCorrectNumber) => prevCorrectNumber + 1);
         // console.log(correctNumber,"after setter")
-        correctNumbers++
-        }
+        correctNumbers++;
       }
-      if (tryLeft != 0) {
-        const newTry: pastTry = {
-          pastTry: [temp],
-          correctLocation:correctLocations,
-          correctNumber:correctNumbers
-        };
-        setPastTry([...pastTry,newTry]);
-        console.log(pastTry);
-      } 
+    }
+    if (tryLeft != 0) {
+      const newTry: pastTry = {
+        pastTry: [temp],
+        correctLocation: correctLocations,
+        correctNumber: correctNumbers,
+      };
+      setPastTry([...pastTry, newTry]);
+      console.log(pastTry);
+    }
   };
   if (correctLocation === 4) {
-    if(token){
-      updateScore("win")
+    if (token) {
+      updateScore("win");
     }
     setWin(true);
-    setOpenM(true)
-    console.log("win")
-    setCorrectLocation(0)
+    setOpenM(true);
+    console.log("win");
+    setCorrectLocation(0);
   }
-  if(tryLeft === 0) {
+  if (tryLeft === 0) {
     setWin(false);
-    setOpenM(true)
-    setTryLeft(10)
-    if(token){
-      updateScore("loss")
+    setOpenM(true);
+    setTryLeft(10);
+    if (token) {
+      updateScore("loss");
     }
-    console.log("lose")
+    console.log("lose");
   }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -139,7 +141,7 @@ const Board = () => {
   };
   return (
     <div>
-      {token &&<p> Hello {user.user.username} </p>}
+      {token && <p> Hello {user.user.username} </p>}
       <p>your try left: {tryLeft}</p>
       <form onSubmit={handleSubmit}>
         <label>
@@ -199,13 +201,22 @@ const Board = () => {
         ))}
       </div>
       <button onClick={fetchNumber}>Start a New Game </button>
-        <Result win = {win} setWin={setWin} fetchNumber={fetchNumber} openM={openM} setOpenM={setOpenM}/>
-        <div>
-          <Link to={"/"}>Back to home page</Link>
-        </div>
-        <div>
-          <Link to={"/score"}>Check out the Score for all player Here!</Link>
-        </div>
+      <Result
+        win={win}
+        setWin={setWin}
+        fetchNumber={fetchNumber}
+        openM={openM}
+        setOpenM={setOpenM}
+      />
+      <div>
+        <Link to={"/"}>Back to home page</Link>
+      </div>
+      <div>
+        <Link to={"/score"}>Check out the Score for all player Here!</Link>
+      </div>
+      <div>
+        <Link to={"/signup"}>Sign Up Now!</Link>
+      </div>
     </div>
   );
 };
