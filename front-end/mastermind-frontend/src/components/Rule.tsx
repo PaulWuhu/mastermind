@@ -17,6 +17,9 @@ const Rule = () => {
             At the end of each guess, We will provide some feedback!
             </li>
             <li>
+            Try to guess the correct combinations before the attempts runs out. 
+            </li>
+            <li>
                 You can Sign Up with an account to make sure your score if kept, or play without an account!
             </li>
         </ul>
