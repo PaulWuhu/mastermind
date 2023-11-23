@@ -32,6 +32,11 @@ const Board = () => {
     number3: 0,
     number4: 0,
   });
+  const handleReset = () => {
+    Array.from(document.querySelectorAll("input")).forEach(
+      input => (input.value = "")
+    );
+  }
   const [pastTry, setPastTry] = useState<pastTry[]>([]);
   const [tryLeft, setTryLeft] = useState<number>(10);
   const [win, setWin] = useState<boolean | null>(null);
@@ -91,6 +96,8 @@ const Board = () => {
     let correctLocations = 0;
     let correctNumbers = 0;
     // console.log(temp)
+    const checked:number[] = []
+    handleReset()
     for (let i = 0; i < 4; i++) {
       if (Number(target[i]) === temp[i]) {
         // console.log(target[i],"target")
@@ -99,11 +106,9 @@ const Board = () => {
         setCorrectLocation((prevCorrectLocation) => prevCorrectLocation + 1);
         correctLocations++;
       }
-      if (temp.includes(Number(target[i]))) {
-        // console.log("i am at correct number")
-        // console.log(correctNumber,"b4 setter")
-        setCorrectNumber((prevCorrectNumber) => prevCorrectNumber + 1);
-        // console.log(correctNumber,"after setter")
+      if (temp.includes(Number(target[i])) && !checked.includes(Number(target[i]))) {
+        checked.push(temp[i])
+        setCorrectNumber((prevCorrectNumber) => prevCorrectNumber + 1);  
         correctNumbers++;
       }
     }
@@ -116,6 +121,7 @@ const Board = () => {
       setPastTry([...pastTry, newTry]);
       console.log(pastTry);
     }
+
   };
   if (correctLocation === 4) {
     if (token) {
@@ -140,67 +146,85 @@ const Board = () => {
     setFormState((prevState) => ({ ...prevState, [name]: +value }));
   };
   return (
-    <div>
-      {token && <p> Hello {user.user.username} </p>}
-      <p>your try left: {tryLeft}</p>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Number 1:
-          <input
-            type="number"
-            min="0"
-            max="7"
-            name="number1"
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Number 2:
-          <input
-            type="number"
-            min="0"
-            max="7"
-            name="number2"
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Number 3:
-          <input
-            type="number"
-            min="0"
-            max="7"
-            name="number3"
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Number 4:
-          <input
-            type="number"
-            min="0"
-            max="7"
-            name="number4"
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
+    <div className="max-w-2xl mx-auto my-8 p-6 bg-white rounded-md shadow-md">
+  {token && <p className="text-lg">Hello, {user.user.username}!</p>}
+  <div className="flex">
+    <div className="w-1/2 pr-4">
+      <p className="text-4xl">Your tries left: {tryLeft}</p>
+      <form onSubmit={handleSubmit} className="mt-4">
+      <label className="block mb-2 text-sm md:text-lg">
+      Number 1:
+      <input
+        className=" text-2xl text-gray-800 w-16 px-2 py-1 border rounded-md"
+        type="number"
+        min="0"
+        max="7"
+        name="number1"
+        onChange={handleChange}
+      />
+    </label>
+    <br />
+    <label className="block mb-2 text-sm md:text-lg">
+      Number 2:
+      <input
+        className=" text-2xl text-gray-800 w-16 px-2 py-1 border rounded-md"
+        type="number"
+        min="0"
+        max="7"
+        name="number2"
+        onChange={handleChange}
+      />
+    </label>
+    <br />
+    <label className="block mb-2 text-sm md:text-lg">
+      Number 3:
+      <input
+        className=" text-2xl text-gray-800 w-16 px-2 py-1 border rounded-md"
+        type="number"
+        min="0"
+        max="7"
+        name="number3"
+        onChange={handleChange}
+      />
+    </label>
+    <br />
+    <label className="block mb-2 text-sm md:text-lg">
+      Number 4:
+      <input
+        className=" text-2xl text-gray-800 w-16 px-2 py-1 border rounded-md"
+        type="number"
+        min="0"
+        max="7"
+        name="number4"
+        onChange={handleChange}
+      />
+    </label>
+    <br />
+    <button
+      type="submit"
+      className="bg-blue-500 text-white text-xl px-4 py-2 rounded-md mt-4"
+    >
+      Submit
+    </button>
       </form>
-      <div>
-        Your past Try:
+    </div>
+    <div className="w-1/2">
+      <div className="mt-4">
+        <p className="text-lg">Your past Tries:</p>
         {pastTry?.map((item, index) => (
-          <div key={index}>
-            <p>{`Your combination is ${item.pastTry}`}</p>
-            <p>{`You have ${item.correctNumber} correct number`}</p>
-            <p>{`You have ${item.correctLocation} correct location`}</p>
+          <div key={index} className="mt-2">
+            <p className="pb-1">Your combination is <span className="font-bold">{`${item.pastTry}`}</span></p>
+            <p className="pb-1">You have <span className="font-bold" >{item.correctNumber} </span> correct number</p>
+            <p className="">You have <span className="font-bold" >{item.correctLocation} </span>correct location</p>
           </div>
         ))}
       </div>
-      <button onClick={fetchNumber}>Start a New Game </button>
+      <button
+        onClick={fetchNumber}
+        className="bg-green-500 text-white px-4 py-2 rounded-md mt-4"
+      >
+        Start a New Game
+      </button>
       <Result
         win={win}
         setWin={setWin}
@@ -208,21 +232,34 @@ const Board = () => {
         openM={openM}
         setOpenM={setOpenM}
       />
-      <div>
-        <Link to={"/"}>Back to home page</Link>
-      </div>
-      <h2>
-          <Link to={"/score"}>Check out the Score for all player Here!</Link>
-        </h2>
-      {!user && <div>
-        <h2>
-          <Link to={"/login"}>Login Now!</Link>
-        </h2>
-        <h2>
-          <Link to={"/signup"}>Sign Up Now!</Link>
-        </h2>
-      </div>}
     </div>
+  </div>
+  <div className="mt-4">
+    <Link to={"/"} className="text-blue-500 text-xl hover:underline">
+      Back to Home Page
+    </Link>
+  </div>
+  <h2 className="mt-4">
+    <Link to={"/score"} className="text-blue-500 text-xl hover:underline">
+      Check out the Scores for all Players Here!
+    </Link>
+  </h2>
+  {!user && (
+    <div className="mt-4">
+      <h2 className="py-2">
+        <Link to={"/login"} className="text-blue-500 text-xl hover:underline">
+          Login Now!
+        </Link>
+      </h2>
+      <h2 className="py-2" >
+        <Link to={"/signup"} className="text-blue-500 text-xl hover:underline">
+          Sign Up Now!
+        </Link>
+      </h2>
+    </div>
+  )}
+</div>
+
   );
 };
 
