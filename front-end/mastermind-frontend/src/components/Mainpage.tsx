@@ -1,31 +1,31 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../assets/UserContext";
 const Mainpage = () => {
   const authContext = useContext(AuthContext);
   const user = authContext.user;
   return (
-    <div>
-      <h1>MasterMind</h1>
-      <h2>
+    <div className="flex flex-col h-screen justify-center items-center">
+      <h1 className="text-blue-500 text-8xl font-bold py-8">MasterMind</h1>
+      <h2 className="text-blue-500 text-4xl font-bold mb-4">
         <Link to={"/rule"}>Check out the Rule Here</Link>
       </h2>
-      <h2>
-        <Link to={"/score"}>Check out the Score for all player Here!</Link>
+      <h2 className="text-blue-500 text-4xl font-bold mb-4">
+        <Link to={"/score"}>Check out the Score for all players Here!</Link>
       </h2>
-      { !user &&
-      <div>
-        <h2>
-          <Link to={"/login"}>Login Now!</Link>
-        </h2>
-        <h2>
-          <Link to={"/signup"}>Sign Up Now!</Link>
-        </h2>
-      </div>}
-      <h2>
+      {!user && (
+        <div className="mb-6">
+          <h2 className="text-blue-500 text-4xl font-bold mb-4">
+            <Link to={"/login"}>Login Now!</Link>
+          </h2>
+          <h2 className="text-blue-500 text-4xl font-bold mb-4">
+            <Link to={"/signup"}>Sign Up Now!</Link>
+          </h2>
+        </div>
+      )}
+      <h2 className="text-blue-500 text-4xl font-bold">
         <Link to={"/board"}>Go Play Now!</Link>
       </h2>
-
     </div>
   );
 };
