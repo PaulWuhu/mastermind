@@ -32,6 +32,7 @@ class my_test(TestCase):
     #     data = self.signup_data
     #     response = self.client.post(url, data)
     #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    # no idea where goes wrong 
 
     def test_get_random_number(self):
         url = reverse("get_random_number")
