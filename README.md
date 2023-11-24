@@ -9,6 +9,8 @@ A take home challenge for REACH Program.
 - [Game Rule](#Game-Rule)
 - [Tech Stack](#Tech-Stack)
 - [Code Structure](#Code-Structure)
+- [File Purpose-backend](#File-Purpose-backend)
+
 
 # Project description
 This is a game where a player tries to guess the number combinations. At the end of each
@@ -44,9 +46,10 @@ This is the first layer into the project, I divided into two separate folder, on
 In the back-end folder, we have our basic python setup for git, and the mastermind_backend folder that contains the django project. Inside the project, we have the mastermind_backend folder for django setting, the built in sqlite database, and the user app for majority of the logic. 
 
 ![frontend structure](img_for_readme/frontend_structure.png)
-Inside the front-end structure, we have the basic setup for react with TypeScript. In side the src folder, we have our app. 
+Inside the front-end structure, we have the basic setup for react with TypeScript. In side the src folder, we have our app. In the assets folder, we have our contexts provider for the app. And we have the rest of the app in  the components folders for each page. 
 
 
+# File Purpose - backend
 
 
 
@@ -58,3 +61,8 @@ Inside the front-end structure, we have the basic setup for react with TypeScrip
 
 # some more writing for each file i backend 
 Inside the user folder, we have our acls.py, which contains a function for calling the Random generator API. In models.py we have the User model with different common.py is where we store the custom JSONEncoder for our user object.
+
+
+<!-- what is being stored in the front-end, and can hey access the information check react source code ensure-->
+<!-- how to be more efficient -->
+<!-- how to deal with traffic ------ to how to scale up? use docker to scale up -->
