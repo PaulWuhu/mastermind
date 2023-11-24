@@ -11,7 +11,6 @@ A take home challenge for REACH Program.
 - [Creative Extensions](#Creative-Extensions)
 - [System Design](#System-Design)
 - [Code Structure](#Code-Structure)
-- [Important File Purpose-backend](#Important-File-Purpose-backend)
 - [API Endpoint](#API-Endpoint)
 
 
@@ -51,7 +50,7 @@ For the front-end, I choose the go to framework for many different web today, Re
 
 
 # System Design 
-
+An overview for each components in the application, and a drawing for how they communicate with each other. 
 ## Components
 1. Frontend(Client-browser)
 * The user interacts with the game through the browser.
@@ -63,7 +62,7 @@ For the front-end, I choose the go to framework for many different web today, Re
 * store user data, such as username ,password, win and lose amount
 
 ## Diagram 
-![Drawing ](img_for_readme/drawing.png.png)
+![Drawing ](img_for_readme/drawing.png)
 * This is the drawing for how backend communicate with the front-end. 
 # Code Structure
 ![first layer of project text](img_for_readme/first_layer.png)
@@ -76,7 +75,7 @@ For the front-end, I choose the go to framework for many different web today, Re
 * Inside the front-end structure, we have the basic setup for react with TypeScript. In side the src folder, we have our app. In the assets folder, we have our contexts provider for the app. And we have the rest of the app in  the components folders for each page. 
 
 
-# Important File Purpose backend
+## Important File Purpose backend
 
 ![acl.py code img](img_for_readme/aclpy.png)
 * The acl.py file contains a function for calling the Random generator API. We use a different function to call the 3rd party API. So the user will ot be able to call the API directly. 
@@ -106,11 +105,61 @@ def get_random_number(request):
 ```
 This is the endpoint for getting a random number. we simply call the function that calls the 3rd party api, and we send the response as json to the front-end
 
+## log in 
+```python 
+@require_http_methods(["POST"])
+def log_in(request):
+    try:
+        content = json.loads(request.body)
+    except json.JSONDecodeError:
+        return 400, {"message": "Bad JSON"}, None
+    username = content["username"]
+    password = content["password"]
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        response = JsonResponse({"message": "does not have this username"}, status=404)
+        return response
+    check_pass = user.password
+    password_check = check_password(password, check_pass)
+    if password_check:
+        refresh = RefreshToken.for_user(user)
+        token = {
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+        }
+        data = {"token": token, "user": user}
+        return JsonResponse(data, UserListEncoder, status=200)
+    else:
+        response = JsonResponse({"message": "wrong password"}, status=403)
+        return response
+# this is the url for this end point
+# url = /user/api/login/
+```
+* The log_in API is designed for user authentication. It accepts HTTP POST requests with JSON-encoded data containing the user's username and password. The API validates the provided credentials, and upon successful authentication, it generates JWT (JSON Web Token) access and refresh tokens. These tokens can be used for secure access to authenticated endpoints. If the provided credentials are incorrect, the API returns appropriate error messages. During development I run into some bug for this endpoint because I choose not to use the built in User model from Django. The difference between django and django rest also proves some difficulty during development, but I figured out later. 
 
+```python 
+@api_view(["POST"])
+def signup(request):
+    try:
+        content = json.loads(request.body)
+    except json.JSONDecodeError:
+        return 400, {"message": "Bad JSON"}, None
+    username = content["username"]
+    user = User.objects.filter(username=username)
+    if user:
+        return JsonResponse({"message": "user already exist"}, status=400)
+    try:
+        content["password"] = make_password(content["password"])
+        account = User.objects.create(**content)
+        return log_in(request)
+    except ValueError as e:
+        return 400, {"message": str(e)}, None
+# this is the url for this end point     
+# url = /user/api/user/signup/
+```
+* The sign up API is designed for user sign up. It accepts HTTP POST requests with JSON-encoded data containing the desired username and password. The API validates the provided data, ensuring it is well-formed JSON. If successful, it checks if the specified username is already in use. If the username is available, the API securely hashes the password using Django's make_password function, creates a new user account, and initiates user authentication by calling the log_in API. And we would log the user in as soon as they create te account. If the provided JSON is invalid or if the username is already taken, appropriate error responses are returned. During development, I tried to take account of all the error the endpoint might have, and I did some documentation searching the ```python make_password ```function and make sure the safety of the user password. 
 
-
-# some more writing for each file i backend 
-Inside the user folder, we have our acls.py, which contains a function for calling the Random generator API. In models.py we have the User model with different common.py is where we store the custom JSONEncoder for our user object.
 
 
 <!-- what is being stored in the front-end, and can hey access the information check react source code ensure-->
