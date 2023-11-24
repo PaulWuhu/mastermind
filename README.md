@@ -49,7 +49,7 @@ In the back-end folder, we have our basic python setup for git, and the mastermi
 Inside the front-end structure, we have the basic setup for react with TypeScript. In side the src folder, we have our app. In the assets folder, we have our contexts provider for the app. And we have the rest of the app in  the components folders for each page. 
 
 
-# File Purpose - backend
+# File Purpose backend
 
 
 
