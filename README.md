@@ -75,7 +75,8 @@ def get_random_number(request):
     response = get_random_number_from_api()
     res = JsonResponse(response, safe=False)
     return res
-url = /user/api/get_random_numbers
+# this is the url for this end point
+# url = /user/api/get_random_numbers
 ```
 This is the endpoint for getting a random number. we simply call the function that calls the 3rd party api, and we send the response as json to the front-end
 
