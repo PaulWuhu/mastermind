@@ -34,7 +34,27 @@ At the start of the game the We will randomly select a pattern of four different
 
 # Tech Stack
 Web-development is the most familiar form of Software development for me . Therefore, I decided to make a web-based game for this challenge. Although there are many different language to choose from for web backend development, the one I am most confident about is Python. After deciding the language, I need to choose a framework. There are two main python framework to choose from, Flask or Django. I personally like to use Django more because of the built in database, testing framework, Django admin and the entire ecosystem around the framework would make the development experience much smoother.
-For the front-end, I choose the go to framework for many different web today, React. For the CSS, I choose to use tailwind CSS, as I believe its the easiest css tool to use. Although there are a lot of extra library to use with React, I choose not to use any external library for the front-end, to make sure I have full control of my code. 
+For the front-end, I choose the go to framework for many different web today, React. For the CSS, I choose to use tailwind CSS, as I believe its the easiest css tool to use. Although there are a lot of extra library to use with React, I choose not to use any external library for the front-end, to make sure I have full control of my code. I also choose TypeScript for its strict typing system to ensure code quality, so no any. 
 
 # Code Structure
 ![first layer of project text](img_for_readme/first_layer.png)
+This is the first layer into the project, I divided into two separate folder, one for front-end and one for backend. 
+
+![backend structure](img_for_readme/backend_structure.png)
+In the back-end folder, we have our basic python setup for git, and the mastermind_backend folder that contains the django project. Inside the project, we have the mastermind_backend folder for django setting, the built in sqlite database, and the user app for majority of the logic. 
+
+![frontend structure](img_for_readme/frontend_structure.png)
+Inside the front-end structure, we have the basic setup for react with TypeScript. In side the src folder, we have our app. 
+
+
+
+
+
+
+
+
+
+
+
+# some more writing for each file i backend 
+Inside the user folder, we have our acls.py, which contains a function for calling the Random generator API. In models.py we have the User model with different common.py is where we store the custom JSONEncoder for our user object.

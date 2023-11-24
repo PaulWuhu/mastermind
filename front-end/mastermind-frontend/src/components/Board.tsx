@@ -4,17 +4,7 @@ import Result from "./result";
 import { AuthContext } from "../assets/UserContext";
 import { Link } from "react-router-dom";
 import { ScoreContext } from "../assets/ScoreContext";
-type pastTry = {
-  pastTry: number[];
-  correctLocation: number;
-  correctNumber: number;
-};
-interface FormState {
-  number1: number;
-  number2: number;
-  number3: number;
-  number4: number;
-}
+
 
 const Board = () => {
   const userContext = useContext(AuthContext);
