@@ -1,7 +1,8 @@
 # MasterMind 
 A take home challenge for REACH Program. 
 
-<!-- # todo for next time: remember to setup timer? or diffculity for the game  -->
+# todo 
+remember to check if I use the end point for get, to let user check their own score
 
 # Table of Content
 - [Project Description](#project-description)
@@ -137,7 +138,7 @@ def log_in(request):
 # url = /user/api/login/
 ```
 * The log_in API is designed for user authentication. It accepts HTTP POST requests with JSON-encoded data containing the user's username and password. The API validates the provided credentials, and upon successful authentication, it generates JWT (JSON Web Token) access and refresh tokens. These tokens can be used for secure access to authenticated endpoints. If the provided credentials are incorrect, the API returns appropriate error messages. During development I run into some bug for this endpoint because I choose not to use the built in User model from Django. The difference between django and django rest also proves some difficulty during development, but I figured out later. 
-
+## Sign Up
 ```python 
 @api_view(["POST"])
 def signup(request):
@@ -158,8 +159,51 @@ def signup(request):
 # this is the url for this end point     
 # url = /user/api/user/signup/
 ```
-* The sign up API is designed for user sign up. It accepts HTTP POST requests with JSON-encoded data containing the desired username and password. The API validates the provided data, ensuring it is well-formed JSON. If successful, it checks if the specified username is already in use. If the username is available, the API securely hashes the password using Django's make_password function, creates a new user account, and initiates user authentication by calling the log_in API. And we would log the user in as soon as they create te account. If the provided JSON is invalid or if the username is already taken, appropriate error responses are returned. During development, I tried to take account of all the error the endpoint might have, and I did some documentation searching the ```python make_password ```function and make sure the safety of the user password. 
+* The sign up API is designed for user sign up. It accepts HTTP POST requests with JSON-encoded data containing the desired username and password. The API validates the provided data, ensuring it is well-formed JSON. If successful, it checks if the specified username is already in use. If the username is available, the API securely hashes the password using Django's make_password function, creates a new user account, and initiates user authentication by calling the log_in API. And we would log the user in as soon as they create te account. If the provided JSON is invalid or if the username is already taken, appropriate error responses are returned. During development, I tried to take account of all the error the endpoint might have, and I did some documentation searching the ```make_password``` function and make sure the safety of the user password. 
 
+## Get/Delete User 
+```python
+@api_view(["GET", "DELETE"])
+@permission_classes([IsAuthenticated])
+def api_get_user(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        response = JsonResponse({"message": "does not have this user"})
+        response.status_code = 404
+        return response
+    if request.method == "GET":
+        return JsonResponse(
+            user,
+            UserListEncoder,
+            safe=False,
+        )
+    else:
+        count, _ = User.objects.filter(username=username).delete()
+        return JsonResponse({"deleted": count > 0})
+# this is the url for this end point     
+# url = /user/api/get_user/{username to pass in}/
+```
+* The api_get_user API endpoint allows authenticated users to retrieve information about a specific user or delete their own account. This endpoint supports both GET and DELETE HTTP methods.If the user exists, the API responds with a JSON representation of the user's information, will return deleted true for deleted. 
+In case the user does not exist, a 404 status with an appropriate error message is returned. During development, I ran into a huge problem with ```@permission_classes([IsAuthenticated])```. In Django rest simple jwt, it requires developer to use the built in User model from ```django.contrib.auth.Models```. I choose to use the Models.model instead. Which cause the authentication to bug for a while. In the end, I fix the bug by going to the code from the library, and discover that I need stateless auth, where a user is not needed for ```@permission_classes([IsAuthenticated])```.
+
+## Get all User 
+```python 
+@api_view(["GET"])
+def api_get_all_user(request):
+    try:
+        users = User.objects.all()
+        response = JsonResponse(users, UserListEncoder, safe=False)
+        return response
+    except:
+        return JsonResponse(
+            {"message": "something went wrong"},
+            status=400,
+        )
+# this is the url for this end point     
+# url = /user/api/get_all_user
+```
+* 
 
 
 <!-- what is being stored in the front-end, and can hey access the information check react source code ensure-->
