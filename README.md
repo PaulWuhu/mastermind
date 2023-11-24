@@ -8,6 +8,8 @@ A take home challenge for REACH Program.
 - [Running the Project](#Running-the-Project)
 - [Game Rule](#Game-Rule)
 - [Tech Stack](#Tech-Stack)
+- [Creative Extensions](#Creative-Extensions)
+- [System Design](#System-Design)
 - [Code Structure](#Code-Structure)
 - [Important File Purpose-backend](#Important-File-Purpose-backend)
 - [API Endpoint](#API-Endpoint)
@@ -39,6 +41,30 @@ At the start of the game the We will randomly select a pattern of four different
 Web-development is the most familiar form of Software development for me . Therefore, I decided to make a web-based game for this challenge. Although there are many different language to choose from for web backend development, the one I am most confident about is Python. After deciding the language, I need to choose a framework. There are two main python framework to choose from, Flask or Django. I personally like to use Django more because of the built in database, testing framework, Django admin and the entire ecosystem around the framework would make the development experience much smoother.
 For the front-end, I choose the go to framework for many different web today, React. For the CSS, I choose to use tailwind CSS, as I believe its the easiest css tool to use. Although there are a lot of extra library to use with React, I choose not to use any external library for the front-end, to make sure I have full control of my code. I also choose TypeScript for its strict typing system to ensure code quality, so no any. 
 
+# Creative Extensions
+
+* Allow user to create account and log in. 
+* Created backend authentication that check for username, and password 
+* protect sensitive endpoint with JWT based token authentication. 
+* Allow users to keep track of their record
+* wrote unit test that test the endpoint
+
+
+# System Design 
+
+## Components
+1. Frontend(Client-browser)
+* The user interacts with the game through the browser.
+* The frontend is responsible for rendering the game interface and handling user input.
+2. Backend(Server)
+* The backend handles getting the number, stores user data, and communicates with the database.
+* Handel user user authentication and authorization with JWT 
+3. Database(sqlite)
+* store user data, such as username ,password, win and lose amount
+
+## Diagram 
+![Drawing ](img_for_readme/drawing.png.png)
+* This is the drawing for how backend communicate with the front-end. 
 # Code Structure
 ![first layer of project text](img_for_readme/first_layer.png)
 * This is the first layer into the project, I divided into two separate folder, one for front-end and one for backend. 

@@ -20,7 +20,7 @@ type user = {
 
 export type AuthContextType = {
   user: user | null;
-  setuser: Dispatch<SetStateAction<string | null>>;
+  setUser: Dispatch<SetStateAction<string | null>>;
   login: Promise<void>;
   logout: () => null;
 };

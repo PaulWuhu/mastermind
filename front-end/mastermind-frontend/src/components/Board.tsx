@@ -4,7 +4,7 @@ import Result from "./result";
 import { AuthContext } from "../assets/UserContext";
 import { Link } from "react-router-dom";
 import { ScoreContext } from "../assets/ScoreContext";
-
+import Delete from "./Delete";
 
 const Board = () => {
   const userContext = useContext(AuthContext);
@@ -248,6 +248,7 @@ const Board = () => {
       </h2>
     </div>
   )}
+   {user && <Delete/>}
 </div>
 
   );
