@@ -27,6 +27,7 @@ player had guess a number correctly, or/and a number and digit correctly. A play
  * create/active your Python Virtual Environment for your OS 
  * run ```pip install requirement.txt``` for the dependency 
  * ```cd mastermind_backend```
+  * run ```python manage.py migrate ``` to migrate all the setting
  * run ```python manage.py runserver ``` to start django server for both the sqlite and backend AIP endpoint
  * cd into the most outer layer of the project 
  * ``` cd front-end```
