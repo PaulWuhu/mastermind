@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext,useRef } from "react";
 import Result from "./result";
 import { AuthContext } from "../assets/UserContext";
 import { Link } from "react-router-dom";
@@ -22,15 +22,33 @@ const Board = () => {
     number3: 0,
     number4: 0,
   });
+  const [pastTry, setPastTry] = useState<pastTry[]>([]);
+  const [tryLeft, setTryLeft] = useState<number>(10);
+  const [win, setWin] = useState<boolean | null>(null);
+  const [openM, setOpenM] = useState(false);
+  const [startTime, setStartTime] = useState(0);
+  const [now, setNow] = useState(0);
+  const intervalRef = useRef(0);
+  const handleStart = () => {
+    setStartTime(Date.now());
+    setNow(Date.now());
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setNow(Date.now());
+    }, 10);
+  }
+  const handleStop = () => {
+    clearInterval(intervalRef.current)
+  }
   const handleReset = () => {
     Array.from(document.querySelectorAll("input")).forEach(
       input => (input.value = "")
     );
   }
-  const [pastTry, setPastTry] = useState<pastTry[]>([]);
-  const [tryLeft, setTryLeft] = useState<number>(10);
-  const [win, setWin] = useState<boolean | null>(null);
-  const [openM, setOpenM] = useState(false);
+  let secondsPassed = 0;
+  if (startTime != 0 && now != 0) {
+    secondsPassed = Math.floor((now - startTime) / 1000);
+  }
   const updateScore = async (result: string) => {
     const data = { result: result };
     const fetchConfig = {
@@ -68,6 +86,7 @@ const Board = () => {
       });
       setPastTry([]);
       setTryLeft(10);
+      handleStart()
       console.log(jsonData, "the answer");
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -121,12 +140,14 @@ const Board = () => {
     setOpenM(true);
     console.log("win");
     setCorrectLocation(0);
+    handleStop()
   }
   if (tryLeft === 0) {
     setWin(false);
     setOpenM(true);
     setTryLeft(10);
     handleReset()
+    handleStop()
     if (token) {
       updateScore("loss");
     }
@@ -142,6 +163,7 @@ const Board = () => {
   <div className="flex">
     <div className="w-1/2 pr-4">
       <p className="text-4xl">Your tries left: {tryLeft}</p>
+      <p className="text-2xl">This run takes: {secondsPassed} second</p>
       <form onSubmit={handleSubmit} className="mt-4">
       <label className="block mb-2 text-sm md:text-lg">
       Number 1:
