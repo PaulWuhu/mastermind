@@ -48,7 +48,7 @@ For the front-end, I choose the go to framework for many different web today, Re
 * Created backend authentication that check for username, and password 
 * protect sensitive endpoint with JWT based token authentication. 
 * Allow users to keep track of their record
-* wrote unit test that test the endpoint
+* Wrote unit test that test the endpoint
 
 
 # System Design 
@@ -94,6 +94,9 @@ An overview for each components in the application, and a drawing for how they c
 
 ![img for Board.tsx](img_for_readme/img_for_boardtsx.png)
 * This is the most important component in the front-end. Not only it has all the game logic, it also has all the user update logic. 
+![img for the board view](img_for_readme/boardview.png)
+![img for guesses](img_for_readme/guessboard.png)
+* Once user click start a new game, we will call the backend to return us a new random number. And the game now start. Every time the user guess a number, the tries will go down, as shown in the 2nd picture, and the past guess and feed back will appear on the right side. Assuming the user is logged in, we will send an PUT api call to the backend updating weather the user win the game or not, then call the fetchScore from score context and update the score.tsx components. When user is not logged in, It also give link for user to login, or sign up. Once the game finish, the result will pop up, and user can start a new game. 
 
 # API Endpoint
 Both url.py and view.py together achieve our routing need for API endpoint. We are using RESTful API. We have a total of 6 endpoint. 

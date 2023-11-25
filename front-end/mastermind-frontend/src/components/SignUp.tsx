@@ -1,6 +1,6 @@
 import { useContext, useState, ChangeEvent } from "react";
 import { AuthContext } from "../assets/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -80,6 +80,11 @@ const SignUp = () => {
         Sign up
       </button>
     </div>
+    <div className="mt-4">
+    <Link to={"/"} className="text-blue-500 text-xl hover:underline">
+      Back to Home Page
+    </Link>
+  </div>
   </form>
 </div>
   );
