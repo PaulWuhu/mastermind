@@ -1,4 +1,3 @@
-import React from 'react'
 import { AuthContext } from "../assets/UserContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +7,10 @@ const Delete = () => {
     const token = user?.token.access;
     const setUser = userContext.setUser
     const navigate = useNavigate()
+    const logOut = ()=>{
+      setUser(null)
+      navigate("/")
+    }
     const deleteUser = async ():Promise<void> => {
         const fetchConfig = {
           method: "Delete",
@@ -29,6 +32,7 @@ const Delete = () => {
       };
   return (
     <div>
+        <button onClick={logOut} >Log Out</button>
         <button onClick={deleteUser} >Delete my account</button>
     </div>
   )

@@ -5,10 +5,10 @@ const Score = () => {
     const scoreContext = useContext(ScoreContext);
     const scores =scoreContext?.scores
     const fetchScore = scoreContext!.fetchScore
-    // no idea how to fix this yet
     useEffect(() => {
       fetchScore();
     }, []);
+
   return (
     <div className="max-w-6xl mx-auto my-8 p-6 bg-white rounded-md shadow-md">
   <h1 className="text-5xl font-semibold mb-4">Here are the scores for all players!</h1>

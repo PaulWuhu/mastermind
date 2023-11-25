@@ -20,8 +20,8 @@ type user = {
 
 export type AuthContextType = {
   user: user | null;
-  setUser: Dispatch<SetStateAction<string | null>>;
-  login: Promise<void>;
+  setUser: Dispatch<SetStateAction<user | null>>;
+  login: (username: string, password: string)=> Promise<void>;
   logout: () => null;
 };
 
@@ -37,7 +37,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = (props: AuthProviderProps) => {
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<user | null>(null);
   const login = async (username: string, password: string) => {
     const url = "http://127.0.0.1:8000/user/api/login/";
     const data = {

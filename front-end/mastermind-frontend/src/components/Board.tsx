@@ -87,7 +87,6 @@ const Board = () => {
     let correctNumbers = 0;
     // console.log(temp)
     const checked:number[] = []
-    handleReset()
     for (let i = 0; i < 4; i++) {
       if (Number(target[i]) === temp[i]) {
         // console.log(target[i],"target")
@@ -104,7 +103,7 @@ const Board = () => {
     }
     if (tryLeft != 0) {
       const newTry: pastTry = {
-        pastTry: [temp],
+        pastTry: temp,
         correctLocation: correctLocations,
         correctNumber: correctNumbers,
       };
@@ -117,6 +116,7 @@ const Board = () => {
     if (token) {
       updateScore("win");
     }
+    handleReset()
     setWin(true);
     setOpenM(true);
     console.log("win");
@@ -126,6 +126,7 @@ const Board = () => {
     setWin(false);
     setOpenM(true);
     setTryLeft(10);
+    handleReset()
     if (token) {
       updateScore("loss");
     }
