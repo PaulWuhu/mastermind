@@ -142,11 +142,13 @@ const Board = () => {
     setCorrectLocation(0);
     handleStop()
   }
-  if (tryLeft === 0) {
+  if (tryLeft === 0 || secondsPassed === 300) {
     setWin(false);
     setOpenM(true);
     setTryLeft(10);
     handleReset()
+    setStartTime(Date.now());
+    setNow(Date.now());
     handleStop()
     if (token) {
       updateScore("loss");

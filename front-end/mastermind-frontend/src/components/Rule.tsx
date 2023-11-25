@@ -10,13 +10,13 @@ const Rule = () => {
             At the start of the game, we will randomly select a pattern of four different numbers from a total of 8 different numbers, from 0 to 7!
         </li>
         <li className="mb-5">
-            A player will have 10 attempts to guess the number combinations.
+            A player will have 10 attempts to guess the number combinations and 300 second to guess.
         </li>
         <li className="mb-5">
             At the end of each guess, we will provide some feedback.
         </li>
         <li className="mb-5">
-            Try to guess the correct combinations before the attempts run out.
+            Try to guess the correct combinations before the attempts and time run out.
         </li>
         <li className="mb-5">
             You can Sign Up with an account to make sure your score is kept, or play without an account!
