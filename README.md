@@ -14,6 +14,7 @@ remember to check if I use the end point for get, to let user check their own sc
 - [Code Structure](#Code-Structure)
 - [API Endpoint](#API-Endpoint)
 - [Further Improvement](#Further-Improvement)
+- [Closing Thought](#Closing-Thought)
 
 
 # Project description
@@ -27,10 +28,10 @@ player had guess a number correctly, or/and a number and digit correctly. A play
  * create/active your Python Virtual Environment for your OS 
  * run ```pip install requirement.txt``` for the dependency 
  * ```cd mastermind_backend```
-  * run ```python manage.py migrate ``` to migrate all the setting
+ * run ```python manage.py migrate ``` to migrate all the setting
  * run ```python manage.py runserver ``` to start django server for both the sqlite and backend AIP endpoint
  * cd into the most outer layer of the project 
- * ``` cd front-end```
+ * ```cd front-end```
  * run ``` npm install``` for the dependency
  * run ```npm run dev ``` for front-end UI 
  * backend runs on localhost 8000, frontend runs on localhost 5173
@@ -268,13 +269,12 @@ def api_score(request, username):
 * The api_score API endpoint allows authenticated users to update their game scores. This endpoint supports the PUT HTTP method. Depend on the JSON we will determined if the user win or loss. And we will query the database and update the according field. We will make sure that we return a 400 for bad json. During development, I run into the problem of updating the field. So upon reading the documentation, I choose to use ```user.save()``` to update the field. 
 
 
-<!-- what is being stored in the front-end, and can hey access the information check react source code ensure-->
-<!-- how to be more efficient -->
-<!-- how to deal with traffic ------ to how to scale up? use docker to scale up -->
-
 # Further Improvement
 * Add difficulty for the amount of number we receive 
 * Use docker for the app, achieve easier scaling. 
 * Add user token to local storage for better user experience 
 * Add refresh token, and blacklist token ability for backend 
 * deployment 
+
+# Closing Thought 
+Building this app has been incredibly fun. At first I though writing the readme would be very difficult, but I truly enjoyed writing this much. I really tried to document my though process and serval issue I ran into in the readme. I carefully explain what each important file does and what each endpoint did. More importantly, having this opportunity to participate for LinkedIn REACH is incredible to me. 
