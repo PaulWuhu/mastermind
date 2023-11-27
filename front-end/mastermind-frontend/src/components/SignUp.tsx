@@ -39,12 +39,12 @@ const SignUp = () => {
     }
   };
   return (
-<div className="max-w-md mx-auto bg-white rounded-md shadow-md overflow-hidden">
+<div className="flex items-center justify-center h-screen bg-white rounded-md shadow-md overflow-hidden  ">
   <form onSubmit={(e) => handleSubmit(e)} className="px-8 py-6">
-    <h2 className="text-xl font-semibold mb-6 text-blue-900">Sign Up Now!</h2>
+    <h2 className="text-6xl font-semibold mb-6 text-blue-900">Sign Up Now!</h2>
 
     <div className="mb-6">
-      <label htmlFor="username" className="block text-sm font-medium text-blue-900">
+      <label htmlFor="username" className="block text-xl font-medium text-blue-900">
         Username
       </label>
       <input
@@ -58,7 +58,7 @@ const SignUp = () => {
     </div>
 
     <div className="mb-6">
-      <label htmlFor="password" className="block text-sm font-medium text-blue-900">
+      <label htmlFor="password" className="block text-xl font-medium text-blue-900">
         Password
       </label>
       <input
@@ -75,7 +75,7 @@ const SignUp = () => {
     <div className="flex items-center justify-end">
       <button
         type="submit"
-        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+        className="px-4 py-2 bg-blue-500 text-white rounded-md text-xl hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
       >
         Sign up
       </button>

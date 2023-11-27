@@ -56,7 +56,10 @@ export const AuthProvider = (props: AuthProviderProps) => {
       if (response.ok) {
         const jsonData = await response.json();
         setUser(jsonData);
-        // console.log(user)
+      }
+      else{
+        console.log(response.status)
+        console.log(await response.json())
       }
     } catch {
       console.log(Error);

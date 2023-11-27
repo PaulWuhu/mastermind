@@ -21,11 +21,22 @@ const Login = (): ReactElement => {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
+    try {
     login(username, password);
-    console.log(user);
+    }
+    catch{
+      console.log(Error)
+    }   
+    if(user?.token) {    
     navigate("/board");
     setUsername("");
     setPassword("");
+  }
+  else{
+    alert("Opp, something went wrong")
+    setUsername("");
+    setPassword("");
+  }
   };
   return (
     <div className="container mx-auto mt-8 p-8 bg-gray-100 shadow-md">
