@@ -12,10 +12,10 @@ A take home challenge for REACH Program.
 - [Code Structure](#Code-Structure)
 - [API Endpoint](#API-Endpoint)
 - [Further Improvement](#Further-Improvement)
-
+s
 
 # Project description
-This is a game where a player tries to guess the number combinations. At the end of each attempt to guess the 4 number combinations, the computer will provide feedback whether the player had guess a number correctly, or/and a number and digit correctly. A player must guess the right number combinations within 10 attempts, and within 300 seconds to win the game. Player can sign up, log in, and have their score recorded. Player have the ability to check all users' scores, and play without signing up. 
+This is a game where a player tries to guess the number combinations. A player must guess the right number combinations within 10 attempts, and within 300 seconds to win the game. At the end of each attempt to guess the 4 number combinations, the computer will provide feedback whether the player had guess a number correctly, or/and a number and digit correctly.  Player can sign up, log in, and have their score recorded. Player have the ability to check all users' scores, and play without signing up. 
 
 # Running the Project
  * Clone/pull the Project
@@ -24,7 +24,7 @@ This is a game where a player tries to guess the number combinations. At the end
  * create/active your Python Virtual Environment for your OS 
  * run ```pip install -r requirement.txt``` for the dependency 
  * ```cd mastermind_backend```
- * run ```python manage.py migrate ``` to migrate all the setting
+ * run ```python manage.py migrate ``` to migrate all the setting for django
  * run ```python manage.py runserver ``` to start django server for both the sqlite and backend AIP endpoint
  * open a new terminal 
  * cd into the most outer layer of the project 
@@ -37,15 +37,15 @@ This is a game where a player tries to guess the number combinations. At the end
  
 
 # Testing
-In mastermind\back-end\mastermind_backend, run ```python manage.py test``` to unit test the endpoint. There are 9 tests that test situation where input is correct as well when input is not. We have 9 test for 6 endpoints. There is no test for front-end yet. 
+In mastermind\back-end\mastermind_backend, run ```python manage.py test``` to unit test the endpoint. There are 9 tests that test situation where input is correct as well when input is not. The test.py file have 9 test for 6 endpoints. There is no test for front-end yet. 
 
 # Game Rule 
-At the start of the game the program will randomly select a pattern of four different numbers from a total of 8 different numbers, from 0 to 7! A player will have 10 attempts to guess the number combinations. At the end of each guess, We will provide some feedbacks for your guess. Try to guess the correct combinations before the attempts runs out. 
+At the start of the game the program will randomly select a pattern of four different numbers from a total of 8 different numbers, from 0 to 7! A player will have to guess the right combination with in 10 attempts and within 300 seconds. At the end of each guess, We will provide some feedbacks for your guess. Try to guess the correct combinations before the attempts runs out. 
 
 # Tech Stack
-Web-development is the most familiar form of Software development to me. Therefore, I decided to make a web-based game for this challenge.
-Although there are many different language to choose from for web backend development, the one I am most confident about is Python. 
-After deciding the language, I need to choose a framework. There are two main python framework to choose from, Flask or Django. I chose Django because the built-in database, testing framework, Django admin and the entire ecosystem around the framework make the development experience much smoother.
+Web-development is the most familiar form of Software development to me. Therefore, I decided to make a web-based game for this challenge.<br />
+Although there are many different language to choose from for web backend development, the one I am most confident about is Python. <br />
+After deciding the language, I need to choose a framework. There are two main python framework to choose from, Flask or Django. I chose Django because the built-in database, testing framework, Django admin and the entire ecosystem around the framework that make the development experience much smoother.<br />
 The front-end framework is the industry-standard, React. For the CSS, I employed tailwind CSS for simplicity and clarity.  
 I also chose TypeScript for its strict typing system to ensure code quality, so no any.
 
@@ -54,7 +54,7 @@ I also chose TypeScript for its strict typing system to ensure code quality, so 
 * Created backend authentication that check for username, and password. 
 * Protect sensitive endpoint with JWT based token authentication. 
 * Allow users to keep track of their record.
-* Wrote unit test that test the endpoint.
+* Wrote unit tests that test the endpoint.
 * Added a timer for the front-end view.
 
 
