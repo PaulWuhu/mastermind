@@ -21,7 +21,7 @@ type user = {
 export type AuthContextType = {
   user: user | null;
   setUser: Dispatch<SetStateAction<user | null>>;
-  login: (username: string, password: string)=> Promise<void>;
+  login: (username: string, password: string) => Promise<void>;
   logout: () => null;
 };
 
@@ -56,10 +56,9 @@ export const AuthProvider = (props: AuthProviderProps) => {
       if (response.ok) {
         const jsonData = await response.json();
         setUser(jsonData);
-      }
-      else{
-        console.log(response.status)
-        console.log(await response.json())
+      } else {
+        console.log(response.status);
+        console.log(await response.json());
       }
     } catch {
       console.log(Error);

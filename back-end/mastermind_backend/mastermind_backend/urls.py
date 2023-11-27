@@ -29,3 +29,5 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api-auth/", include("rest_framework.urls")),
 ]
+
+# some of the endpoint are not used, but documentation suggested to have them
