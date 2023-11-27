@@ -13,10 +13,6 @@ class my_test(TestCase):
             "username": "testuser",
             "password": make_password("testpassword"),
         }
-        self.signup_data = {
-            "username": "newuser",
-            "password": "newpassword",
-        }
 
         self.user = User.objects.create(**self.user_data)
         refresh = RefreshToken.for_user(self.user)
@@ -25,12 +21,16 @@ class my_test(TestCase):
             "access": str(refresh.access_token),
         }
 
-    # def test_signup(self):
-    #     url = '/user/api/user/signup/'
-    #     data = self.signup_data
-    #     response = self.client.post(url, data)
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    # no idea where goes wrong
+    def test_signup(self):
+        url = reverse("signup")
+        response = self.client.post(url, {"username": "test22","password":"password"},  content_type="application/json",)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_signup_two_user(self):
+        url = reverse("signup")
+        response = self.client.post(url, {"username": "testuser", "password": "testpassword"},  content_type="application/json",)
+        self.assertEqual(response.status_code, 400)
+        self.assertTrue("message" in response.json())
 
     def test_get_random_number(self):
         url = reverse("get_random_number")
@@ -47,6 +47,22 @@ class my_test(TestCase):
         self.assertTrue("token" in response.json())
         self.assertTrue("user" in response.json())
 
+    def test_login_fail_no_user(self):
+        response = self.client.post(
+            "/user/api/login/",
+            {"username": "tester", "password": "testpassword"},
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 404)
+
+    def test_login_fail_no_user(self):
+        response = self.client.post(
+            "/user/api/login/",
+            {"username": "testuser", "password": "testssword"},
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 403)
+
     def test_api_get_user(self):
         url = reverse("api_get_user", args=["testuser"])
         response = self.client.get(
@@ -56,6 +72,16 @@ class my_test(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue("username" in response.json())
+
+    def test_api_get_user_fail(self):
+        url = reverse("api_get_user", args=["tesuser"])
+        response = self.client.get(
+            url,
+            HTTP_AUTHORIZATION=f'Bearer {self.token["access"]}',
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 404)
+        self.assertTrue("message" in response.json())
 
     def test_api_get_all_user(self):
         url = reverse("api_get_all_user")

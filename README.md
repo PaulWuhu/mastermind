@@ -4,6 +4,7 @@ A take home challenge for REACH Program.
 # Table of Content
 - [Project Description](#project-description)
 - [Running the Project](#Running-the-Project)
+- [Testing](#Testing)
 - [Game Rule](#Game-Rule)
 - [Tech Stack](#Tech-Stack)
 - [Creative Extensions](#Creative-Extensions)
@@ -18,7 +19,7 @@ This is a game where a player tries to guess the number combinations. At the end
 
 # Running the Project
  * Clone/pull the Project
-  * run ```cd mastermind```
+ * run ```cd mastermind```
  * run ```cd back-end```
  * create/active your Python Virtual Environment for your OS 
  * run ```pip install -r requirement.txt``` for the dependency 
@@ -34,6 +35,10 @@ This is a game where a player tries to guess the number combinations. At the end
  * backend runs on localhost 8000, frontend runs on localhost 5173
  * App was tested on Chrome 
  
+
+# Testing
+In mastermind\back-end\mastermind_backend, run python manage.py test to unit test the endpoint. There are 9 tests that test situation where input is correct as well when input is not. All 9 test would past. 
+
 # Game Rule 
 At the start of the game the program will randomly select a pattern of four different numbers from a total of 8 different numbers, from 0 to 7! A player will have 10 attempts to guess the number combinations. At the end of each guess, We will provide some feedbacks for your guess. Try to guess the correct combinations before the attempts runs out. 
 
@@ -45,7 +50,6 @@ The front-end framework is the industry-standard, React. For the CSS, I employed
 I also chose TypeScript for its strict typing system to ensure code quality, so no any.
 
 # Creative Extensions
-
 * Allow user to create account and log in. 
 * Created backend authentication that check for username, and password. 
 * Protect sensitive endpoint with JWT based token authentication. 
@@ -65,6 +69,7 @@ An overview for each components in the application, and a drawing for how they c
 * Handle user user authentication and authorization with JWT 
 3. Database(sqlite)
 * Store user data, such as username, password, win and lose amount
+
 
 ## Diagram 
 ![Drawing ](img_for_readme/drawing.png)
