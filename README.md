@@ -18,14 +18,17 @@ This is a game where a player tries to guess the number combinations. At the end
 
 # Running the Project
  * Clone/pull the Project
+  * run ```cd mastermind```
  * run ```cd back-end```
  * create/active your Python Virtual Environment for your OS 
- * run ```pip install requirement.txt``` for the dependency 
+ * run ```pip install -r requirement.txt``` for the dependency 
  * ```cd mastermind_backend```
  * run ```python manage.py migrate ``` to migrate all the setting
  * run ```python manage.py runserver ``` to start django server for both the sqlite and backend AIP endpoint
+ * open a new terminal 
  * cd into the most outer layer of the project 
  * ```cd front-end```
+ * ```cd mastermind-frontend```
  * run ``` npm install``` for the dependency
  * run ```npm run dev ``` for front-end UI 
  * backend runs on localhost 8000, frontend runs on localhost 5173
