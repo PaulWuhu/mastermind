@@ -23,12 +23,20 @@ class my_test(TestCase):
 
     def test_signup(self):
         url = reverse("signup")
-        response = self.client.post(url, {"username": "test22","password":"password"},  content_type="application/json",)
+        response = self.client.post(
+            url,
+            {"username": "test22", "password": "password"},
+            content_type="application/json",
+        )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_signup_two_user(self):
         url = reverse("signup")
-        response = self.client.post(url, {"username": "testuser", "password": "testpassword"},  content_type="application/json",)
+        response = self.client.post(
+            url,
+            {"username": "testuser", "password": "testpassword"},
+            content_type="application/json",
+        )
         self.assertEqual(response.status_code, 400)
         self.assertTrue("message" in response.json())
 

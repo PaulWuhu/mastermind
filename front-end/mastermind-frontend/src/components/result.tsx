@@ -21,7 +21,7 @@ const Result = ({ win, setWin, openM, setOpenM, fetchNumber }: props) => {
               </div>
             ) : (
               <div className="self-center text-center text-4xl px-7 py-3 mt-4 font-semibold rounded-md min-w-[300px] min-h-[100px] bg-violet-400 text-gray-900 mx-5">
-                Congratulations! 
+                Congratulations!
                 <br />
                 You win!
               </div>

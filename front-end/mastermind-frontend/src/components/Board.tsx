@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext,useRef } from "react";
+import { useState, useContext, useRef } from "react";
 import Result from "./result";
 import { AuthContext } from "../assets/UserContext";
 import { Link } from "react-router-dom";
@@ -36,15 +36,15 @@ const Board = () => {
     intervalRef.current = setInterval(() => {
       setNow(Date.now());
     }, 10);
-  }
+  };
   const handleStop = () => {
-    clearInterval(intervalRef.current)
-  }
+    clearInterval(intervalRef.current);
+  };
   const handleReset = () => {
     Array.from(document.querySelectorAll("input")).forEach(
-      input => (input.value = "")
+      (input) => (input.value = "")
     );
-  }
+  };
   let secondsPassed = 0;
   if (startTime != 0 && now != 0) {
     secondsPassed = Math.floor((now - startTime) / 1000);
@@ -86,7 +86,7 @@ const Board = () => {
       });
       setPastTry([]);
       setTryLeft(10);
-      handleStart()
+      handleStart();
       console.log(jsonData, "the answer");
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -105,7 +105,7 @@ const Board = () => {
     let correctLocations = 0;
     let correctNumbers = 0;
     // console.log(temp)
-    const checked:number[] = []
+    const checked: number[] = [];
     for (let i = 0; i < 4; i++) {
       if (Number(target[i]) === temp[i]) {
         // console.log(target[i],"target")
@@ -114,9 +114,12 @@ const Board = () => {
         setCorrectLocation((prevCorrectLocation) => prevCorrectLocation + 1);
         correctLocations++;
       }
-      if (temp.includes(Number(target[i])) && !checked.includes(Number(target[i]))) {
-        checked.push(temp[i])
-        setCorrectNumber((prevCorrectNumber) => prevCorrectNumber + 1);  
+      if (
+        temp.includes(Number(target[i])) &&
+        !checked.includes(Number(target[i]))
+      ) {
+        checked.push(temp[i]);
+        setCorrectNumber((prevCorrectNumber) => prevCorrectNumber + 1);
         correctNumbers++;
       }
     }
@@ -129,27 +132,26 @@ const Board = () => {
       setPastTry([...pastTry, newTry]);
       console.log(pastTry);
     }
-
   };
   if (correctLocation === 4) {
     if (token) {
       updateScore("win");
     }
-    handleReset()
+    handleReset();
     setWin(true);
     setOpenM(true);
     console.log("win");
     setCorrectLocation(0);
-    handleStop()
+    handleStop();
   }
   if (tryLeft === 0 || secondsPassed === 300) {
     setWin(false);
     setOpenM(true);
     setTryLeft(10);
-    handleReset()
+    handleReset();
     setStartTime(Date.now());
     setNow(Date.now());
-    handleStop()
+    handleStop();
     if (token) {
       updateScore("loss");
     }
@@ -161,121 +163,137 @@ const Board = () => {
   };
   return (
     <div className="max-w-2xl mx-auto my-8 p-6 bg-white rounded-md shadow-md">
-  {token && <p className="text-lg">Hello, {user.user.username}!</p>}
-  <div className="flex">
-    <div className="w-1/2 pr-4">
-      <p className="text-4xl">Your tries left: {tryLeft}</p>
-      <p className="text-2xl">This run takes: {secondsPassed} second</p>
-      <form onSubmit={handleSubmit} className="mt-4">
-      <label className="block mb-2 text-sm md:text-lg">
-      Number 1:
-      <input
-        className=" text-2xl text-gray-800 w-16 px-2 py-1 border rounded-md"
-        type="number"
-        min="0"
-        max="7"
-        name="number1"
-        onChange={handleChange}
-      />
-    </label>
-    <br />
-    <label className="block mb-2 text-sm md:text-lg">
-      Number 2:
-      <input
-        className=" text-2xl text-gray-800 w-16 px-2 py-1 border rounded-md"
-        type="number"
-        min="0"
-        max="7"
-        name="number2"
-        onChange={handleChange}
-      />
-    </label>
-    <br />
-    <label className="block mb-2 text-sm md:text-lg">
-      Number 3:
-      <input
-        className=" text-2xl text-gray-800 w-16 px-2 py-1 border rounded-md"
-        type="number"
-        min="0"
-        max="7"
-        name="number3"
-        onChange={handleChange}
-      />
-    </label>
-    <br />
-    <label className="block mb-2 text-sm md:text-lg">
-      Number 4:
-      <input
-        className=" text-2xl text-gray-800 w-16 px-2 py-1 border rounded-md"
-        type="number"
-        min="0"
-        max="7"
-        name="number4"
-        onChange={handleChange}
-      />
-    </label>
-    <br />
-    <button
-      type="submit"
-      className="bg-blue-500 text-white text-xl px-4 py-2 rounded-md mt-4"
-    >
-      Submit
-    </button>
-      </form>
-    </div>
-    <div className="w-1/2">
-      <div className="mt-4">
-        <p className="text-lg">Your past Tries:</p>
-        {pastTry?.map((item, index) => (
-          <div key={index} className="mt-2">
-            <p className="pb-1">Your combination is <span className="font-bold">{`${item.pastTry}`}</span></p>
-            <p className="pb-1">You have <span className="font-bold" >{item.correctNumber} </span> correct number</p>
-            <p className="">You have <span className="font-bold" >{item.correctLocation} </span>correct location</p>
+      {token && <p className="text-lg">Hello, {user.user.username}!</p>}
+      <div className="flex">
+        <div className="w-1/2 pr-4">
+          <p className="text-4xl">Your tries left: {tryLeft}</p>
+          <p className="text-2xl">This run takes: {secondsPassed} second</p>
+          <form onSubmit={handleSubmit} className="mt-4">
+            <label className="block mb-2 text-sm md:text-lg">
+              Number 1:
+              <input
+                className=" text-2xl text-gray-800 w-16 px-2 py-1 border rounded-md"
+                type="number"
+                min="0"
+                max="7"
+                name="number1"
+                onChange={handleChange}
+              />
+            </label>
+            <br />
+            <label className="block mb-2 text-sm md:text-lg">
+              Number 2:
+              <input
+                className=" text-2xl text-gray-800 w-16 px-2 py-1 border rounded-md"
+                type="number"
+                min="0"
+                max="7"
+                name="number2"
+                onChange={handleChange}
+              />
+            </label>
+            <br />
+            <label className="block mb-2 text-sm md:text-lg">
+              Number 3:
+              <input
+                className=" text-2xl text-gray-800 w-16 px-2 py-1 border rounded-md"
+                type="number"
+                min="0"
+                max="7"
+                name="number3"
+                onChange={handleChange}
+              />
+            </label>
+            <br />
+            <label className="block mb-2 text-sm md:text-lg">
+              Number 4:
+              <input
+                className=" text-2xl text-gray-800 w-16 px-2 py-1 border rounded-md"
+                type="number"
+                min="0"
+                max="7"
+                name="number4"
+                onChange={handleChange}
+              />
+            </label>
+            <br />
+            <button
+              type="submit"
+              className="bg-blue-500 text-white text-xl px-4 py-2 rounded-md mt-4"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+        <div className="w-1/2">
+          <div className="mt-4">
+            <p className="text-lg">Your past Tries:</p>
+            {pastTry?.map((item, index) => (
+              <div key={index} className="mt-2">
+                <p className="pb-1">
+                  Your combination is{" "}
+                  <span className="font-bold">{`${item.pastTry}`}</span>
+                </p>
+                <p className="pb-1">
+                  You have{" "}
+                  <span className="font-bold">{item.correctNumber} </span>{" "}
+                  correct number
+                </p>
+                <p className="">
+                  You have{" "}
+                  <span className="font-bold">{item.correctLocation} </span>
+                  correct location
+                </p>
+              </div>
+            ))}
           </div>
-        ))}
+          <button
+            onClick={fetchNumber}
+            className="bg-green-500 text-white px-4 py-2 rounded-md mt-4"
+          >
+            Start a New Game
+          </button>
+          <Result
+            win={win}
+            setWin={setWin}
+            fetchNumber={fetchNumber}
+            openM={openM}
+            setOpenM={setOpenM}
+          />
+        </div>
       </div>
-      <button
-        onClick={fetchNumber}
-        className="bg-green-500 text-white px-4 py-2 rounded-md mt-4"
-      >
-        Start a New Game
-      </button>
-      <Result
-        win={win}
-        setWin={setWin}
-        fetchNumber={fetchNumber}
-        openM={openM}
-        setOpenM={setOpenM}
-      />
-    </div>
-  </div>
-  <div className="mt-4">
-    <Link to={"/"} className="text-blue-500 text-xl hover:underline">
-      Back to Home Page
-    </Link>
-  </div>
-  <h2 className="mt-4">
-    <Link to={"/score"} className="text-blue-500 text-xl hover:underline">
-      Check out the Scores for all Players Here!
-    </Link>
-  </h2>
-  {!user && (
-    <div className="mt-4">
-      <h2 className="py-2">
-        <Link to={"/login"} className="text-blue-500 text-xl hover:underline">
-          Login Now!
+      <div className="mt-4">
+        <Link to={"/"} className="text-blue-500 text-xl hover:underline">
+          Back to Home Page
+        </Link>
+      </div>
+      <h2 className="mt-4">
+        <Link to={"/score"} className="text-blue-500 text-xl hover:underline">
+          Check out the Scores for all Players Here!
         </Link>
       </h2>
-      <h2 className="py-2" >
-        <Link to={"/signup"} className="text-blue-500 text-xl hover:underline">
-          Sign Up Now!
-        </Link>
-      </h2>
+      {!user && (
+        <div className="mt-4">
+          <h2 className="py-2">
+            <Link
+              to={"/login"}
+              className="text-blue-500 text-xl hover:underline"
+            >
+              Login Now!
+            </Link>
+          </h2>
+          <h2 className="py-2">
+            <Link
+              to={"/signup"}
+              className="text-blue-500 text-xl hover:underline"
+            >
+              Sign Up Now!
+            </Link>
+          </h2>
+        </div>
+      )}
+      {user && <Delete />}
     </div>
-  )}
-   {user && <Delete/>}
-</div>
-
   );
 };
 

@@ -39,54 +39,62 @@ const SignUp = () => {
     }
   };
   return (
-<div className="flex items-center justify-center h-screen bg-white rounded-md shadow-md overflow-hidden  ">
-  <form onSubmit={(e) => handleSubmit(e)} className="px-8 py-6">
-    <h2 className="text-6xl font-semibold mb-6 text-blue-900">Sign Up Now!</h2>
+    <div className="flex items-center justify-center h-screen bg-white rounded-md shadow-md overflow-hidden  ">
+      <form onSubmit={(e) => handleSubmit(e)} className="px-8 py-6">
+        <h2 className="text-6xl font-semibold mb-6 text-blue-900">
+          Sign Up Now!
+        </h2>
 
-    <div className="mb-6">
-      <label htmlFor="username" className="block text-xl font-medium text-blue-900">
-        Username
-      </label>
-      <input
-        name="username"
-        id="username"
-        onChange={handleUserNameChange}
-        autoComplete="username"
-        value={username === null ? "" : username}
-        className="w-full mt-2 p-2 border border-blue-300 rounded-md focus:outline-none focus:border-blue-500"
-      />
-    </div>
+        <div className="mb-6">
+          <label
+            htmlFor="username"
+            className="block text-xl font-medium text-blue-900"
+          >
+            Username
+          </label>
+          <input
+            name="username"
+            id="username"
+            onChange={handleUserNameChange}
+            autoComplete="username"
+            value={username === null ? "" : username}
+            className="w-full mt-2 p-2 border border-blue-300 rounded-md focus:outline-none focus:border-blue-500"
+          />
+        </div>
 
-    <div className="mb-6">
-      <label htmlFor="password" className="block text-xl font-medium text-blue-900">
-        Password
-      </label>
-      <input
-        placeholder="******"
-        onChange={handlePasswordChange}
-        type="password"
-        name="password"
-        id="password"
-        value={password}
-        className="w-full mt-2 p-2 border border-blue-300 rounded-md focus:outline-none focus:border-blue-500"
-      />
-    </div>
+        <div className="mb-6">
+          <label
+            htmlFor="password"
+            className="block text-xl font-medium text-blue-900"
+          >
+            Password
+          </label>
+          <input
+            placeholder="******"
+            onChange={handlePasswordChange}
+            type="password"
+            name="password"
+            id="password"
+            value={password}
+            className="w-full mt-2 p-2 border border-blue-300 rounded-md focus:outline-none focus:border-blue-500"
+          />
+        </div>
 
-    <div className="flex items-center justify-end">
-      <button
-        type="submit"
-        className="px-4 py-2 bg-blue-500 text-white rounded-md text-xl hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-      >
-        Sign up
-      </button>
+        <div className="flex items-center justify-end">
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-500 text-white rounded-md text-xl hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          >
+            Sign up
+          </button>
+        </div>
+        <div className="mt-4">
+          <Link to={"/"} className="text-blue-500 text-xl hover:underline">
+            Back to Home Page
+          </Link>
+        </div>
+      </form>
     </div>
-    <div className="mt-4">
-    <Link to={"/"} className="text-blue-500 text-xl hover:underline">
-      Back to Home Page
-    </Link>
-  </div>
-  </form>
-</div>
   );
 };
 

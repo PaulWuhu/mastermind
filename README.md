@@ -37,7 +37,7 @@ This is a game where a player tries to guess the number combinations. At the end
  
 
 # Testing
-In mastermind\back-end\mastermind_backend, run python manage.py test to unit test the endpoint. There are 9 tests that test situation where input is correct as well when input is not. All 9 test would past. 
+In mastermind\back-end\mastermind_backend, run ```python manage.py test``` to unit test the endpoint. There are 9 tests that test situation where input is correct as well when input is not. We have 9 test for 6 endpoints. There is no test for front-end yet. 
 
 # Game Rule 
 At the start of the game the program will randomly select a pattern of four different numbers from a total of 8 different numbers, from 0 to 7! A player will have 10 attempts to guess the number combinations. At the end of each guess, We will provide some feedbacks for your guess. Try to guess the correct combinations before the attempts runs out. 

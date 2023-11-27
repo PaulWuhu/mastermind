@@ -15,7 +15,7 @@ const Mainpage = () => {
       </h2>
       {!user && (
         <div className="text-blue-500 text-4xl font-bold my-4">
-          <h2 >
+          <h2>
             <Link to={"/login"}>Login Now!</Link>
           </h2>
           <h2 className="text-blue-500 text-4xl font-bold my-4">

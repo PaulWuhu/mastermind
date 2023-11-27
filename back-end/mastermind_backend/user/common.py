@@ -3,11 +3,11 @@ from django.db.models import QuerySet
 
 
 class QuerySetEncoder(JSONEncoder):
-    def default(self, o):
-        if isinstance(o, QuerySet):
-            return list(o)
+    def default(self, object):
+        if isinstance(object, QuerySet):
+            return list(object)
         else:
-            return super().default(o)
+            return super().default(object)
 
 
 class ModelEncoder(QuerySetEncoder, JSONEncoder):
