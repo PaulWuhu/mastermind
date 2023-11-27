@@ -1,9 +1,6 @@
 # MasterMind 
 A take home challenge for REACH Program. 
 
-# todo 
-remember to check if I use the end point for get, to let user check their own score
-
 # Table of Content
 - [Project Description](#project-description)
 - [Running the Project](#Running-the-Project)
@@ -14,13 +11,10 @@ remember to check if I use the end point for get, to let user check their own sc
 - [Code Structure](#Code-Structure)
 - [API Endpoint](#API-Endpoint)
 - [Further Improvement](#Further-Improvement)
-- [Closing Thought](#Closing-Thought)
 
 
 # Project description
-This is a game where a player tries to guess the number combinations. At the end of each
-attempt to guess the 4 number combinations, the computer will provide feedback whether the
-player had guess a number correctly, or/and a number and digit correctly. A player must guess the right number combinations within 10 attempts to win the game. Player can sign up, log in, and have their score be recorded. Player have the ability to check all user'score, and play without signing up. 
+This is a game where a player tries to guess the number combinations. At the end of each attempt to guess the 4 number combinations, the computer will provide feedback whether the player had guess a number correctly, or/and a number and digit correctly. A player must guess the right number combinations within 10 attempts, and within 300 seconds to win the game. Player can sign up, log in, and have their score recorded. Player have the ability to check all users' scores, and play without signing up. 
 
 # Running the Project
  * Clone/pull the Project
@@ -38,20 +32,23 @@ player had guess a number correctly, or/and a number and digit correctly. A play
  * App was tested on Chrome 
  
 # Game Rule 
-At the start of the game the We will randomly select a pattern of four different numbers from a total of 8 different numbers, from 0 to 7! A player will have 10 attempts to guess the number combinations. At the end of each guess, We will provide some feedback for your guess. Try to guess the correct combinations before the attempts runs out. 
+At the start of the game the program will randomly select a pattern of four different numbers from a total of 8 different numbers, from 0 to 7! A player will have 10 attempts to guess the number combinations. At the end of each guess, We will provide some feedbacks for your guess. Try to guess the correct combinations before the attempts runs out. 
 
 # Tech Stack
-Web-development is the most familiar form of Software development for me . Therefore, I decided to make a web-based game for this challenge. Although there are many different language to choose from for web backend development, the one I am most confident about is Python. After deciding the language, I need to choose a framework. There are two main python framework to choose from, Flask or Django. I personally like to use Django more because of the built in database, testing framework, Django admin and the entire ecosystem around the framework would make the development experience much smoother.
-For the front-end, I choose the go to framework for many different web today, React. For the CSS, I choose to use tailwind CSS, as I believe its the easiest css tool to use. Although there are a lot of extra library to use with React, I choose not to use any external library for the front-end, to make sure I have full control of my code. I also choose TypeScript for its strict typing system to ensure code quality, so no any. 
+Web-development is the most familiar form of Software development to me. Therefore, I decided to make a web-based game for this challenge.
+Although there are many different language to choose from for web backend development, the one I am most confident about is Python. 
+After deciding the language, I need to choose a framework. There are two main python framework to choose from, Flask or Django. I chose Django because the built-in database, testing framework, Django admin and the entire ecosystem around the framework make the development experience much smoother.
+The front-end framework is the industry-standard, React. For the CSS, I employed tailwind CSS for simplicity and clarity.  
+I also chose TypeScript for its strict typing system to ensure code quality, so no any.
 
 # Creative Extensions
 
 * Allow user to create account and log in. 
-* Created backend authentication that check for username, and password 
+* Created backend authentication that check for username, and password. 
 * Protect sensitive endpoint with JWT based token authentication. 
-* Allow users to keep track of their record
-* Wrote unit test that test the endpoint
-* Added a timer for the front-end view
+* Allow users to keep track of their record.
+* Wrote unit test that test the endpoint.
+* Added a timer for the front-end view.
 
 
 # System Design 
@@ -62,9 +59,9 @@ An overview for each components in the application, and a drawing for how they c
 * The frontend is responsible for rendering the game interface and handling user input.
 2. Backend(Server)
 * The backend handles getting the number, stores user data, and communicates with the database.
-* Handel user user authentication and authorization with JWT 
+* Handle user user authentication and authorization with JWT 
 3. Database(sqlite)
-* store user data, such as username ,password, win and lose amount
+* Store user data, such as username, password, win and lose amount
 
 ## Diagram 
 ![Drawing ](img_for_readme/drawing.png)
@@ -77,7 +74,7 @@ An overview for each components in the application, and a drawing for how they c
 * In the back-end folder, we have our basic python setup for git, and the mastermind_backend folder that contains the django project. Inside the project, we have the mastermind_backend folder for django setting, the built in sqlite database, and the user app for majority of the logic. 
 
 ![frontend structure](img_for_readme/frontend_structure.png)
-* Inside the front-end structure, we have the basic setup for react with TypeScript. In side the src folder, we have our app. In the assets folder, we have our contexts provider for the app. And we have the rest of the app in  the components folders for each page. 
+* Inside the front-end structure, we have the basic setup for react with TypeScript. In side the src folder, we have our app. In the assets folder, we have our contexts provider for the app. And we have the rest of the app in the components folders for each page. 
 
 
 ## Important File Purpose-Backend
@@ -271,10 +268,7 @@ def api_score(request, username):
 
 # Further Improvement
 * Add difficulty for the amount of number we receive 
-* Use docker for the app, achieve easier scaling. 
+* Use docker for the app, achieve easier scaling 
 * Add user token to local storage for better user experience 
 * Add refresh token, and blacklist token ability for backend 
-* deployment 
-
-# Closing Thought 
-Building this app has been incredibly fun. At first I though writing the readme would be very difficult, but I truly enjoyed writing this much. I really tried to document my though process and serval issue I ran into in the readme. I carefully explain what each important file does and what each endpoint did. More importantly, having this opportunity to participate for LinkedIn REACH is incredible to me. 
+* Deployment 
